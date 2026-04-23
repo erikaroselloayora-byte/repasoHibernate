@@ -21,13 +21,13 @@ public class Medicamento {
 	private String caducidad;
 	
 	@Column(name="existencias")
-	private String existencias;
+	private Boolean existencias;
 	
 	public Medicamento() {
 		super();
 	}
 	
-	public Medicamento(int id, String nombre, String formato, String caducidad, String existencias) {
+	public Medicamento(int id, String nombre, String formato, String caducidad, Boolean existencias) {
 		super();
 		this.id = id;
 		this.nombre = nombre;
@@ -68,11 +68,11 @@ public class Medicamento {
 		this.caducidad = caducidad;
 	}
 
-	public String getExistencias() {
+	public Boolean getExistencias() {
 		return existencias;
 	}
 
-	public void setExistencias(String existencias) {
+	public void setExistencias(Boolean existencias) {
 		this.existencias = existencias;
 	}
 

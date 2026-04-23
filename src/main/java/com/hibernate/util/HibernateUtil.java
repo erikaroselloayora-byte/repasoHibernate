@@ -9,6 +9,7 @@ import org.hibernate.cfg.Environment;
 import org.hibernate.service.ServiceRegistry;
 
 import com.hibernate.model.Medicamento;
+import com.hibernate.model.SinStock;
 
 
 public class HibernateUtil {
@@ -20,7 +21,7 @@ public class HibernateUtil {
 				
 				Properties settings = new Properties();
 				settings.put(Environment.DRIVER, "com.mysql.cj.jdbc.Driver");
-				settings.put(Environment.URL, "jdbc:mysql://localhost:3307/farmacia2?useSSL=false");
+				settings.put(Environment.URL, "jdbc:mysql://192.168.1.212:3306/farmacia2?useSSL=false");
 				settings.put(Environment.USER, "alumno");
 				settings.put(Environment.PASS, "alumno");
 				settings.put(Environment.SHOW_SQL, "true");
@@ -30,6 +31,7 @@ public class HibernateUtil {
 				configuration.setProperties(settings);
 				
 				configuration.addAnnotatedClass(Medicamento.class);
+				configuration.addAnnotatedClass(SinStock.class);
 				
 				ServiceRegistry serviceRegistry = new StandardServiceRegistryBuilder()
 						.applySettings(configuration.getProperties()).build();

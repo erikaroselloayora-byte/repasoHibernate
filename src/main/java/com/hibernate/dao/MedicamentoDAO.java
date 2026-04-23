@@ -6,6 +6,7 @@ import org.hibernate.Session;
 import org.hibernate.Transaction;
 
 import com.hibernate.model.Medicamento;
+import com.hibernate.model.SinStock;
 import com.hibernate.util.HibernateUtil;
 
 public class MedicamentoDAO {
@@ -57,7 +58,7 @@ public class MedicamentoDAO {
 		List<Medicamento> productos=null;
 		try (Session session=HibernateUtil.getSessionFactory().openSession()) {
 			transaction=session.beginTransaction();
-			productos=session.createQuery("FROM Medicamentos",Medicamento.class).getResultList();
+			productos=session.createQuery("FROM Medicamento",Medicamento.class).getResultList();
 			transaction.commit();
 		} catch (Exception e) {
 			if (transaction!=null) {
@@ -65,6 +66,37 @@ public class MedicamentoDAO {
 			}
 		}
 		return productos;
+	}
+	
+	public void insertSinStock(SinStock ss) {
+	    Transaction transaction = null;
+	    try (Session session = HibernateUtil.getSessionFactory().openSession()) {
+	        transaction = session.beginTransaction();
+	        session.persist(ss);
+	        transaction.commit();
+	    } catch (Exception e) {
+	        if (transaction != null) transaction.rollback();
+	    }
+	}
+
+	public void deleteSinStock(int id) {
+	    Transaction transaction = null;
+	    try (Session session = HibernateUtil.getSessionFactory().openSession()) {
+	        transaction = session.beginTransaction();
+	        SinStock ss = session.get(SinStock.class, id);
+	        if (ss != null) session.remove(ss);
+	        transaction.commit();
+	    } catch (Exception e) {
+	        if (transaction != null) transaction.rollback();
+	    }
+	}
+
+	public static List<SinStock> selectAllSinStock() {
+	    try (Session session = HibernateUtil.getSessionFactory().openSession()) {
+	        return session.createQuery("FROM SinStock", SinStock.class).getResultList();
+	    } catch (Exception e) {
+	        return null;
+	    }
 	}
 
 }
